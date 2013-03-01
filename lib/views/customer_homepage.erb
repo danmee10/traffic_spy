@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title><%=@customer_id%></title>
+  </head>
+  <body>
+    <h1><%=@customer_id%> Your Homepage</h1>
+      <p>
+        <h2>URLs by times requested</h2>
+        <h4>Root URL: <%=@root_url%></h4>
+          <ol>
+            <li>url1</li>
+            <li>url2</li>
+            <li>url3</li>
+            <li>url4</li>
+        </ol>
+      </p>
+      <p>
+        <h2>URLs by response times</h2>
+          <ol>
+            <li>url1</li>
+            <li>url2</li>
+            <li>url3</li>
+            <li>url4</li>
+        </ol>
+      </p>
+      <p>
+        <h2>URL Hyperlinks</h2>
+    <% [ "www.url1.com", "www.url2.com", "www.url3.com" ].each do |item| %>
+        <div><a href="<%= item %>/index"><%= item %></a></div>
+    <% end %>
+      </p>
+      <p>
+        <h2>Web Browser Breakdown</h2>
+          <ol>
+            <li>b1</li>
+            <li>b2</li>
+            <li>b3</li>
+            <li>b4</li>
+        </ol>
+      </p>
+      <p>
+        <h2>OS Breakdown</h2>
+          <ol>
+            <li>OS1</li>
+            <li>OS2</li>
+            <li>OS3</li>
+            <li>OS4</li>
+        </ol>
+      </p>
+      <p>
+        <h2>Sreen Resolution Breakdown</h2>
+          <ol>
+            <li>SR1</li>
+            <li>SR2</li>
+            <li>SR3</li>
+            <li>SR4</li>
+        </ol>
+      </p>
+      <p>
+        <h2>Event Hyperlinks</h2>
+    <% [ "event1", "event2", "event3" ].each do |item| %>
+        <div><a href="<%= item %>/index"><%= item %></a></div>
+    <% end %>
+      </p>
+<!--
+
+    <div>Text</div>
+    <p>Text2</p>
+    <div>Text3</div>
+
+    <ol>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+
+    <% [ :first, :second, :third ].each do |item| %>
+        <div><a href="<%= item %>/index"><%= item %></a></div>
+    <% end %> -->
+  </body>
+</html>
+
+
+<h4>Most requested URLS to least requested URLS (url)</h4>
+<h4>Web browser breakdown across all requests (userAgent)</h4>
+<h4>OS breakdown across all requests (userAgent)</h4>
+<h4>Screen Resolution across all requests (resolutionWidth x resolutionHeight)</h4>
+<h4>Longest, average response time per URL to shortest, average response time per URL</h4>
+<h4>Hyperlinks of each url to view url specific data</h4>
+<h4>Hyperlink to view aggregate event data</h4>

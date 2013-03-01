@@ -1,3 +1,4 @@
+require 'sinatra'
 module TrafficSpy
 
   # Sinatra::Base - Middleware, Libraries, and Modular Apps
@@ -15,6 +16,29 @@ module TrafficSpy
 
     get '/' do
       erb :index
+    end
+
+    get "/sources/:id" do
+      source_id = params[:id]
+      " Hello #{source_id}"
+    end
+
+
+    get "/sources/:id/events" do
+     source_id = params[:id]
+      " Hello #{source_id} these are your events"
+      # erb :events
+    end
+
+
+    get "/sources/:id/events/:event_id" do
+     source_id = params[:id]
+      " Hello #{source_id} here is your event #{params[:event_id]}"
+    end
+
+    get "/sources/:id/campaigns/:campaign_id" do
+      source_id = params[:id]
+      " Hello #{source_id} here is your campaign #{params[:campaign_id]}"
     end
 
     not_found do

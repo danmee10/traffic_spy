@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>--IDENTIFIER--</title>
+  </head>
+  <body>
+    <h1>CAMPAIGNS</h1>
+      <p>
+        <h2>Events by Times Received</h2>
+          <ol>
+            <li>E1</li>
+            <li>E2</li>
+            <li>E3</li>
+            <li>E4</li>
+        </ol>
+      </p>
+
+      <p>
+        <h2>URL Hyperlinks</h2>
+    <% [ "www.event1.com", "www.event2.com", "www.event3.com" ].each do |item| %>
+        <div><a href="<%= item %>/index"><%= item %></a></div>
+    <% end %>
+      </p>
+
+  </body>
+</html>
+
+
+<h1>all events in order of most received to least received</h1>
+<h1>links to event specific data</h1>
