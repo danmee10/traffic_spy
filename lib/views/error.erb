@@ -2,17 +2,10 @@
 
 <html>
   <head>
-    <title>IdeaBox</title>
+    <title>HTTP status <%=@code%></title>
   </head>
   <body>
-    <h1>Error</h1>
-    <form action='/create' method='post'>
-      <p>
-        Your Idea:
-      </p>
-      <input type='text' name='idea_name'/><br/>
-      <textarea name='idea_description'></textarea><br/>
-      <input type='submit'/>
-    </form>
+    <h1>Error: <%=@code%><%=@error_name%></h1>
+    <h4>Please
   </body>
 </html>

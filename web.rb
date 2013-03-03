@@ -1,8 +1,14 @@
-require 'sinatra'
+curl -i -d 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'  http://localhost:9393/sources/dan/data
 
-class Application
 
-end
+
+'payload={"url":"http://bigexample.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'
+# require 'sinatra'
+
+# class Application
+
+# end
+{"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700"}
 
 # post '/sources' do
 #     #
@@ -84,63 +90,4 @@ end
 
 #     #if no campaign..error message
 # end
-set :views, 'lib/views'
-require './lib/traffic_spy/models/customer'
-require './lib/traffic_spy/models/campaign'
-# Bundler.require
 
-get '/' do
-  erb :register_customer
-end
-
-post '/sources' do
-  # puts "#{Time.now} got response #{params}"
-  source_id = params[:identifier]
-  root_url = params[:root_url]
-  # if source_id || root_url == nil
-  #   redirect to('/error400')
-  # end
-  customer = TrafficSpy::Customer.new(:identifier => source_id,
-                                                                    :root_url => root_url)
-  #store all customer information as a unique instance of a customer
-  customer.save
-
-  redirect to("/sources/#{source_id}")
-end
-
-get "/sources/:identifier" do
-  @customer_id = params[:identifier]
-  @root_url = TrafficSpy::Customer.find_root_url(:identifier)
-  erb :customer_homepage
-end
-
-post '/sources/:identifier/data' do
-  payload = Request.new(data)
-end
-
-
-get '/sources/:identifier/url' do
-  erb :url_data
-end
-
-get "/sources/:identifier/events" do
-  erb :aggr_event_data
-end
-
-get "/sources/:identifier/events/:event_name" do
-  erb :event_data
-end
-
-get '/sources/:identifier/campaign' do
-  erb :register_campaign
-end
-
-post "/sources/:identifier/campaign" do
-  campaign_name = params[:campaign_name]
-  event_names = params[:event_names]
-  TrafficSpy::Campaign.new(campaign_name, event_names)
-end
-
-get "/sources/:identifier/campaign/:campaign_name" do
-  erb :campaign_data
-end

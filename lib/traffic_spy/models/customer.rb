@@ -1,29 +1,27 @@
 # require 'sqlite3'
 require 'sequel'
+require 'traffic_spy'
 
 module TrafficSpy
 
 
   class Customer
-    attr_reader :identifier, :root_url
+    attr_reader :identifier, :rootUrl
+    extend TheDatabase
 
     def initialize(input)
       @identifier = input[:identifier]
-      @root_url = input[:root_url]
-    end
-
-    def self.database
-      @database ||= Sequel.sqlite('./db/traffic_spy.sqlite3')
+      @rootUrl = input[:rootUrl]
     end
 
     def save
       Customer.data.insert(:identifier => identifier,
-                                            :root_url => root_url)
+                                            :rootUrl => rootUrl)
     end
 
     def self.data
       verify_table_exists
-      database[:customers]
+      TheDatabase.database[:customers]
     end
 
     def self.verify_table_exists
@@ -31,21 +29,22 @@ module TrafficSpy
     end
 
     def self.create_table
-      database.create_table? :customers do
+      TheDatabase.database.create_table? :customers do
         primary_key :id
         String :identifier
-        String :root_url
+        String :rootUrl
       end
     end
 
     def self.find_root_url(identifier)
-      #takes in a customer's identifier and returns that customer's root url
-      # dataset = database.from(:customers)
-      # puts identifier
-      data.select(:root_url).where(:identifier == identifier)
+      row = data.select.where(:identifier => identifier)
+      row.to_a[-1][:rootUrl]
     end
 
-
+    def self.find_id(identifier)
+      row = data.select.where(:identifier => identifier)
+      row.to_a[0][:id]
+    end
 
   end
 end

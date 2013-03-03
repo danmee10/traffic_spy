@@ -1,26 +1,24 @@
 <html>
   <head>
-    <title><%=@customer_id%></title>
+    <title><%=@customer_identifier%></title>
   </head>
   <body>
-    <h1><%=@customer_id%> Your Homepage</h1>
+    <h1><%=@customer_identifier%>'s Homepage</h1>
       <p>
         <h2>URLs by times requested</h2>
         <h4>Root URL: <%=@root_url%></h4>
           <ol>
-            <li>url1</li>
-            <li>url2</li>
-            <li>url3</li>
-            <li>url4</li>
+    <% @urls_by_times_requested.each do |url| %>
+        <div> <%=url%></div>
+    <% end %>
         </ol>
       </p>
       <p>
         <h2>URLs by response times</h2>
           <ol>
-            <li>url1</li>
-            <li>url2</li>
-            <li>url3</li>
-            <li>url4</li>
+    <% @urls_by_response_time.each do |url| %>
+        <div> <%=url%></div>
+    <% end %>
         </ol>
       </p>
       <p>
@@ -50,10 +48,9 @@
       <p>
         <h2>Sreen Resolution Breakdown</h2>
           <ol>
-            <li>SR1</li>
-            <li>SR2</li>
-            <li>SR3</li>
-            <li>SR4</li>
+    <% @resolutions_by_request_time.each do |resolutions| %>
+        <div><%=resolutions%></a></div>
+    <% end %>
         </ol>
       </p>
       <p>
