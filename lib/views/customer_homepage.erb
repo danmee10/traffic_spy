@@ -23,42 +23,41 @@
       </p>
       <p>
         <h2>URL Hyperlinks</h2>
-    <% [ "www.url1.com", "www.url2.com", "www.url3.com" ].each do |item| %>
-        <div><a href="<%= item %>/index"><%= item %></a></div>
+    <% @url_extension_array.each do |extension| %>
+        <div><a href="/sources/<%=@customer_identifier%>/urls<%= extension %>"><%= extension %></a></div>
     <% end %>
       </p>
       <p>
         <h2>Web Browser Breakdown</h2>
-          <ol>
-            <li>b1</li>
-            <li>b2</li>
-            <li>b3</li>
-            <li>b4</li>
-        </ol>
+    <% @web_browsers_by_times_requested.each do |browser| %>
+        <div> <%=browser%></div>
+    <% end %>
       </p>
       <p>
         <h2>OS Breakdown</h2>
-          <ol>
-            <li>OS1</li>
-            <li>OS2</li>
-            <li>OS3</li>
-            <li>OS4</li>
-        </ol>
+    <% @operating_systems_by_times_requested.each do |operating_system| %>
+        <div> <%=operating_system%></div>
+    <% end %>
       </p>
       <p>
         <h2>Sreen Resolution Breakdown</h2>
           <ol>
-    <% @resolutions_by_request_time.each do |resolutions| %>
+    <% @resolutions_by_times_requested.each do |resolutions| %>
         <div><%=resolutions%></a></div>
     <% end %>
         </ol>
       </p>
       <p>
-        <h2>Event Hyperlinks</h2>
-    <% [ "event1", "event2", "event3" ].each do |item| %>
-        <div><a href="<%= item %>/index"><%= item %></a></div>
-    <% end %>
+        <h2><a href="/sources/<%=@customer_identifier%>/events">Event Index</a></h2>
+<!-- <div><a href="/sources/<%=@customer_identifier%>/events"></a></div> -->
       </p>
+
+
+<!--     <% [ "event1", "event2", "event3" ].each do |item| %>
+        <div><a href="/sources/<%=@customer_identifier%>/<%= item %>/index"><%= item %></a></div>
+    <% end %> -->
+
+
 <!--
 
     <div>Text</div>

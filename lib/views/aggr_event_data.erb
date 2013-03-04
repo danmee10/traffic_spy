@@ -1,23 +1,14 @@
 <html>
   <head>
-    <title>--IDENTIFIER--</title>
+    <title>Event Index</title>
   </head>
   <body>
-    <h1>--AGGREGATE EVENT DATA</h1>
+    <h1><%=@customer_identifier%>'s Event Index</h1>
       <p>
-        <h2>All Events By  Number of Times Received</h2>
-          <ol>
-            <li>E1</li>
-            <li>E2</li>
-            <li>E3</li>
-            <li>E4</li>
-        </ol>
-      </p>
-
-      <p>
-        <h2>Event Hyperlinks</h2>
-    <% [ "www.event1.com", "www.eventl2.com", "www.event3.com" ].each do |item| %>
-        <div><a href="<%= item %>/index"><%= item %></a></div>
+        <h2>Events listed by  number of times received</h2>
+        <h4>Click event listing for details</h4>
+    <% @events_array.each do |event| %>
+        <div><a href="events/<%=event[0] %>"><%= event %></a></div>
     <% end %>
       </p>
 

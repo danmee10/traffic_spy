@@ -1,16 +1,15 @@
 <html>
   <head>
-    <title>--URL--</title>
+    <title><%=@rootUrl%>/<%=@path%><%=@pathext1%><%=@pathext2%></title>
   </head>
   <body>
-    <h1>--URL-- STATS:</h1>
+    <h1><%=@path%><%=@pathext1%><%=@pathext2%> STATS:</h1>
       <p>
         <h2>Response Times</h2>
           <ol>
-            <li>T1</li>
-            <li>T2</li>
-            <li>T3</li>
-            <li>T4</li>
+    <% @response_times.each do |time| %>
+        <div><%= time %></a></div>
+    <% end %>
         </ol>
       </p>
 

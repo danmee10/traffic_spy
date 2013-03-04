@@ -40,7 +40,7 @@ module TrafficSpy
         foreign_key :customer_id
         foreign_key :event_id
         String :url
-        Date :requestedAt
+        DateTime :requestedAt
         Integer :respondedIn
         String :referredBy
         String :requestType

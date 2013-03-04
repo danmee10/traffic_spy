@@ -1,4 +1,9 @@
-curl -i -d 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"referredBy":"http://jumpstartlab.com","requestType":"GET","parameters":[],"eventName": "socialLogin","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}'  http://localhost:9393/sources/dan/data
+curl -i -d 'payload={"url":"http://curlexample.com/party","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":99,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "heromode","userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"9900","resolutionHeight":"2341","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+
+
+
+curl -i -d 'identifier=curl&rootUrl=http://curlexample.com'  http://localhost:9393/sources
+#\/below curl request does not include user agent...and works from the command line\/###
 
 
 
@@ -28,10 +33,23 @@ curl -i -d 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02
 #   # elsif #not enough parameters
 #   #   #400 bad request
 #   # end
-
+curl -i -d 'payload={"url":"http://curlexample.com/blog","requestedAt":"2013-02-16 03:38:28 -0700","respondedIn":37,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "socialLogin","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog","requestedAt":"2013-02-16 14:38:28 -0700","respondedIn":86,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "createAccount","resolutionWidth":"7854","resolutionHeight":"2836","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog/1","requestedAt":"2013-02-16 09:38:28 -0700","respondedIn":99,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "cancelAccount","resolutionWidth":"1099","resolutionHeight":"5709","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog2/3/goop","requestedAt":"2013-02-16 22:38:28 -0700","respondedIn":21,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "refferFriend","resolutionWidth":"7777","resolutionHeight":"7783","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog/1","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":45,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "winMoney","resolutionWidth":"2985","resolutionHeight":"1942","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
 # end
-
+curl -i -d 'payload={"url":"http://curlexample.com/blog","requestedAt":"2013-02-16 06:38:28 -0700","respondedIn":37,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "socialLogin","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog","requestedAt":"2013-02-16 04:38:28 -0700","respondedIn":86,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "createAccount","resolutionWidth":"7854","resolutionHeight":"2836","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog/1","requestedAt":"2013-02-16 19:38:28 -0700","respondedIn":99,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "cancelAccount","resolutionWidth":"1099","resolutionHeight":"5709","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog2/3/goop","requestedAt":"2013-02-16 12:38:28 -0700","respondedIn":21,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "refferFriend","resolutionWidth":"7777","resolutionHeight":"7783","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog/1","requestedAt":"2013-02-16 23:38:28 -0700","respondedIn":45,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "winMoney","resolutionWidth":"2985","resolutionHeight":"1942","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
 # post 'sources/IDENTIFIER/data'
+curl -i -d 'payload={"url":"http://curlexample.com/blog","requestedAt":"2013-02-16 09:38:28 -0700","respondedIn":37,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "socialLogin","resolutionWidth":"1920","resolutionHeight":"1280","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog","requestedAt":"2013-02-16 10:38:28 -0700","respondedIn":86,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "createAccount","resolutionWidth":"7854","resolutionHeight":"2836","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog/1","requestedAt":"2013-02-16 02:38:28 -0700","respondedIn":99,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "cancelAccount","resolutionWidth":"1099","resolutionHeight":"5709","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog2/3/goop","requestedAt":"2013-02-16 15:38:28 -0700","respondedIn":21,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "refferFriend","resolutionWidth":"7777","resolutionHeight":"7783","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
+curl -i -d 'payload={"url":"http://curlexample.com/blog/1","requestedAt":"2013-02-16 08:38:28 -0700","respondedIn":45,"referredBy":"http://curlexample.com","requestType":"GET","parameters":[],"eventName": "winMoney","resolutionWidth":"2985","resolutionHeight":"1942","ip":"63.29.38.211"}' http://localhost:9393/sources/curl/data
 #   #extract payload data
 #   #analyse payload data
 #   #store payload data

@@ -29,6 +29,7 @@ module TrafficSpy
     end
 
     def self.create_table
+      Request.create_table
       TheDatabase.database.create_table? :customers do
         primary_key :id
         String :identifier
@@ -38,12 +39,16 @@ module TrafficSpy
 
     def self.find_root_url(identifier)
       row = data.select.where(:identifier => identifier)
-      row.to_a[-1][:rootUrl]
+      if row.to_a[-1] != nil
+        row.to_a[-1][:rootUrl]
+      end
     end
 
     def self.find_id(identifier)
       row = data.select.where(:identifier => identifier)
-      row.to_a[0][:id]
+      if row.to_a[0] != nil
+        row.to_a[0][:id]
+      end
     end
 
   end

@@ -5,6 +5,7 @@ require 'JSON'
 # require 'traffic_spy'
 require './lib/traffic_spy'
 require './lib/traffic_spy/models/request'
+require 'useragent'
 
   # Sinatra::Base - Middleware, Libraries, and Modular Apps
   #
@@ -36,6 +37,7 @@ module TrafficSpy
       # end
       customer = TrafficSpy::Customer.new(:identifier => source_id,
                                                                         :rootUrl => root_url)
+
       customer.save
 
       redirect to("/sources/#{source_id}")
@@ -45,12 +47,59 @@ module TrafficSpy
       @customer_identifier = params[:identifier]
       @root_url = TrafficSpy::Customer.find_root_url(params[:identifier])
       customer_id = Customer.find_id(@customer_identifier)
+
       @urls_by_times_requested = TheDatabase.urls_by_times_requested(customer_id)
       @urls_by_response_time = TheDatabase.urls_by_response_time(customer_id)
-      # @web_browsers_by_times_requested
+      @resolutions_by_times_requested = TheDatabase.screen_resolutions_by_times_requested(customer_id)
+      @web_browsers_by_times_requested = TheDatabase.browser_breakdown(customer_id)
+      @operating_systems_by_times_requested = TheDatabase.operating_system_breakdown(customer_id)
 
-      @resolutions_by_request_time = TheDatabase.screen_resolutions_by_times_requested(customer_id)
+      @url_extension_array = TheDatabase.url_extensions(customer_id)
+
+
       erb :customer_homepage
+    end
+
+    get "/sources/:identifier/urls/:path" do
+      @rootUrl = TrafficSpy::Customer.find_root_url(params[:identifier])
+      @customer_identifier = params[:identifier]
+      @path = params[:path]
+      @response_times = TheDatabase.url_specific_response_times("#{@rootUrl}/#{@path}")
+      erb :url_data
+    end
+
+    get "/sources/:identifier/urls/:path/:pathext1" do
+      @rootUrl = TrafficSpy::Customer.find_root_url(params[:identifier])
+      @customer_identifier = params[:identifier]
+      @path = params[:path]
+      @pathext1 = "/#{params[:pathext1]}"
+      @response_times = TheDatabase.url_specific_response_times("#{@rootUrl}/#{@path}#{@pathext1}")
+      erb :url_data
+    end
+
+    get "/sources/:identifier/urls/:path/:pathext1/:pathext2" do
+      @rootUrl = TrafficSpy::Customer.find_root_url(params[:identifier])
+      @customer_identifier = params[:identifier]
+      @path = params[:path]
+      @pathext1 = "/#{params[:pathext1]}"
+      @pathext2 = "/#{params[:pathext2]}"
+      @response_times = TheDatabase.url_specific_response_times("#{@rootUrl}/#{@path}#{@pathext1}#{@pathext2}")
+      erb :url_data
+    end
+
+    get "/sources/:identifier/events" do
+      @customer_identifier = params[:identifier]
+      customer_id = Customer.find_id(@customer_identifier)
+      @events_array = TheDatabase.events_by_times_received(customer_id)
+      erb :aggr_event_data
+    end
+
+    get "/sources/:identifier/events/:event_name" do
+      @customer_identifier = params[:identifier]
+      customer_id = Customer.find_id(@customer_identifier)
+      @eventName = params[:event_name]
+      @event_hourly_breakdown = TheDatabase.event_hourly_breakdown(@eventName, customer_id)
+      erb :event_data
     end
 
     get '/sources/:identifier/data' do
@@ -72,17 +121,8 @@ module TrafficSpy
       redirect to('/sources/whoeversubmitteditlast/data')
     end
 
-    get '/sources/:identifier/url' do
-      erb :url_data
-    end
 
-    get "/sources/:identifier/events" do
-      erb :aggr_event_data
-    end
 
-    get "/sources/:identifier/events/:event_name" do
-      erb :event_data
-    end
 
     get '/sources/:identifier/campaign' do
       erb :register_campaign

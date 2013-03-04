@@ -1,17 +1,14 @@
 <html>
   <head>
-    <title>--IDENTIFIER--</title>
+    <title><%=@eventName%></title>
   </head>
   <body>
-    <h1>EVENT</h1>
+    <h1><%=@eventName%> details</h1>
       <p>
         <h2>Hour by Hour Breakdown</h2>
-          <ol>
-            <li>T1</li>
-            <li>T2</li>
-            <li>T3</li>
-            <li>T4</li>
-        </ol>
+    <% @event_hourly_breakdown.each do |hour| %>
+        <div><%= hour %></a></div>
+    <% end %>
       </p>
 
 

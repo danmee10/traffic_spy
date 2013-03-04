@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'sequel'
+require 'useragent'
 # require 'sqlite3'
 
 # require 'traffic_spy/models/base'
@@ -57,10 +58,76 @@ attr_accessor :database
       memo
     end
   end
+
+  def self.url_extensions(customer_id)
+    whole_urls = database[:requests].select(:url).where(:customer_id => customer_id)
+    url_extensions = whole_urls.to_a.collect do |url|
+      garbage = url[:url].sub!(/.*.com/, "")
+    end
+    url_extensions.uniq!
+  end
+
+  def self.url_specific_response_times(url)
+    urls_and_response_times = database[:requests].select(:url,:respondedIn).where(:url => url)
+    urls_and_response_times.to_a.sort_by { |url, response| response}
+  end
+
+  def self.events_by_times_received(customer_id)
+    all_events = database[:requests].select(:eventName).where(:customer_id => customer_id)
+    events_by_times_received = all_events.inject(Hash.new(0)) do |memo, event|
+      memo[event[:eventName]] += 1
+      memo
+    end
+    ordered_events_array = events_by_times_received.sort_by { |event, number| number }.reverse
+  end
+
+  def self.event_hourly_breakdown(eventName, customer_id)
+    all_event_requests = database[:requests].select(:requestedAt).where(:customer_id => customer_id).where(:eventName => eventName)
+    formated_times = all_event_requests.to_a.collect do |time|
+      t = Time.parse(time[:requestedAt].to_s)
+      t.strftime("%H")
+    end
+    event_requests_by_hour = formated_times.inject(Hash.new(0)) do |memo, hour|
+      memo[hour] += 1
+      memo
+    end
+  end
+
+  def self.browser_breakdown(customer_id)
+    user_agent_data = database[:requests].select(:userAgent).where(:customer_id => customer_id)
+    parsed_user_agent_data = user_agent_data.to_a.collect do |data|
+      parsed = UserAgent.parse(data[:userAgent])
+      browser_data = parsed.browser
+    end
+    browser_hash = parsed_user_agent_data.inject(Hash.new(0)) do |memo, data|
+      memo[data] += 1
+      memo
+    end
+  end
+
+  def self.operating_system_breakdown(customer_id)
+    user_agent_data = database[:requests].select(:userAgent).where(:customer_id => customer_id)
+    parsed_user_agent_data = user_agent_data.to_a.collect do |data|
+      parsed = UserAgent.parse(data[:userAgent])
+      browser_data = parsed.os
+    end
+    operating_system_hash = parsed_user_agent_data.inject(Hash.new(0)) do |memo, data|
+      memo[data] += 1
+      memo
+    end
+  end
+
+
+
 end
 
-example = TheDatabase.screen_resolutions_by_times_requested(6)
-puts example
+# example = TheDatabase.browser_breakdown(1)
+# puts example
+
+
+# # # example.to_a.each do |ex|
+# #   puts ex[:url]
+# end
 
 
 
