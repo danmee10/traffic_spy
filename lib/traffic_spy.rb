@@ -24,6 +24,8 @@ require 'useragent'
 module TheDatabase
 attr_accessor :database
 
+
+
   def self.database
     @database ||= Sequel.sqlite('./db/traffic_spy.sqlite3')
   end
@@ -49,14 +51,6 @@ attr_accessor :database
     end
     urls_w_avg_times = urls_hash.merge(url_count) {|url, total_response_time, times_requested| total_response_time/times_requested}
     urls_w_avg_times.sort_by { |url, avg_res_time| avg_res_time}
-  end
-
-  def self.screen_resolutions_by_times_requested(customer_id)
-    all_width_x_height = database[:requests].select(:resolutionWidth,:resolutionHeight).where(:customer_id => customer_id)
-    resolution_hash = all_width_x_height.inject(Hash.new(0)) do |memo, data|
-      memo[data] += 1
-      memo
-    end
   end
 
   def self.url_extensions(customer_id)
@@ -117,11 +111,42 @@ attr_accessor :database
     end
   end
 
+  # def self.campaign_events_hash(customer_id, campaignName)
+  #   all_events = database[:requests].select(:eventNames).where(:customer_id => customer_id).where(:campaignName => campaignName)
+  #   events_by_times_received = all_events.inject(Hash.new(0)) do |memo, event|
+  #     memo[event[:eventName]] += 1
+  #     memo
+  #   end
+  #   # ordered_events_array = events_by_times_received.sort_by { |event, number| number }.reverse
+  # end
 
+  def self.identifier_exists?(customer_identifier)
+    customer_identifiers = database[:customers].select(:identifier)
+    customer_identifiers.to_a.any? { |identifier| identifier[:identifier] == customer_identifier}
+  end
+
+  # def self.payload_data_exists?(payload_data)
+  #   customer_identifiers = database[:customers].select(:identifier)
+  #   customer_identifiers.to_a.any? { |identifier| identifier[:identifier] == customer_identifier}
+  # end
+
+  def self.event_exists?(eventName)
+    events = database[:requests].select(:eventName)
+    events.to_a.any? { |event| event[:eventName] == eventName}
+  end
+
+  def self.screen_resolutions_by_times_requested(customer_id)
+    all_width_x_height = database[:requests].select(:resolutionWidth,:resolutionHeight).where(:customer_id => customer_id)
+    resolution_hash = all_width_x_height.inject(Hash.new(0)) do |memo, data|
+      memo[data] += 1
+      memo
+    end
+    resolution_hash.sort_by {|k| k[1]}.reverse
+  end
 
 end
 
-# example = TheDatabase.browser_breakdown(1)
+# example = TheDatabase.screen_resolutions_by_times_requested(1)
 # puts example
 
 

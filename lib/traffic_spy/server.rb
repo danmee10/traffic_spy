@@ -16,7 +16,6 @@ require 'useragent'
   # assumes a micro-app style configuration (e.g., a single application file,
   # ./public and ./views directories, logging, exception detail page, etc.).
   # That's where Sinatra::Base comes into play:
-  #
 module TrafficSpy
 
 
@@ -29,35 +28,40 @@ module TrafficSpy
     end
 
     post '/sources' do
+      Customer.create_table
       source_id = params[:identifier]
       root_url = params[:rootUrl]
-      # if source_id || root_url == nil
-      #   redirect to(not_found)
-      #   @code = "400"
-      # end
-      customer = TrafficSpy::Customer.new(:identifier => source_id,
-                                                                        :rootUrl => root_url)
-
-      customer.save
-
-      redirect to("/sources/#{source_id}")
+      if params[:identifier] == nil || params[:identifier] == ""
+        halt 400, "ERROR: Please enter an Identifier\n"
+      elsif params[:rootUrl] == nil || params[:rootUrl] == ""
+        halt 400, "ERROR: Please enter a RootUrl\n"
+      elsif TheDatabase.identifier_exists?(params[:identifier])
+        halt 403, "ERROR: Identifier already exists!\n"
+      else
+        #return status 200 and display {"identifier":"________"}
+        customer = TrafficSpy::Customer.new(:identifier => source_id,
+                                            :rootUrl => root_url)
+        customer.save
+        redirect to("/sources/#{source_id}")
+      end
     end
 
     get "/sources/:identifier" do
+      Customer.create_table
       @customer_identifier = params[:identifier]
-      @root_url = TrafficSpy::Customer.find_root_url(params[:identifier])
-      customer_id = Customer.find_id(@customer_identifier)
-
-      @urls_by_times_requested = TheDatabase.urls_by_times_requested(customer_id)
-      @urls_by_response_time = TheDatabase.urls_by_response_time(customer_id)
-      @resolutions_by_times_requested = TheDatabase.screen_resolutions_by_times_requested(customer_id)
-      @web_browsers_by_times_requested = TheDatabase.browser_breakdown(customer_id)
-      @operating_systems_by_times_requested = TheDatabase.operating_system_breakdown(customer_id)
-
-      @url_extension_array = TheDatabase.url_extensions(customer_id)
-
-
-      erb :customer_homepage
+      if TheDatabase.identifier_exists?(@customer_identifier)
+        @root_url = TrafficSpy::Customer.find_root_url(params[:identifier])
+        customer_id = Customer.find_id(@customer_identifier)
+        @urls_by_times_requested = TheDatabase.urls_by_times_requested(customer_id)
+        @urls_by_response_time = TheDatabase.urls_by_response_time(customer_id)
+        @resolutions_by_times_requested = TheDatabase.screen_resolutions_by_times_requested(customer_id)
+        @web_browsers_by_times_requested = TheDatabase.browser_breakdown(customer_id)
+        @operating_systems_by_times_requested = TheDatabase.operating_system_breakdown(customer_id)
+        @url_extension_array = TheDatabase.url_extensions(customer_id)
+        erb :customer_homepage
+      else
+        "Sorry, #{@customer_identifier} is not an identifier in our records"
+      end
     end
 
     get "/sources/:identifier/urls/:path" do
@@ -95,54 +99,78 @@ module TrafficSpy
     end
 
     get "/sources/:identifier/events/:event_name" do
-      @customer_identifier = params[:identifier]
-      customer_id = Customer.find_id(@customer_identifier)
       @eventName = params[:event_name]
-      @event_hourly_breakdown = TheDatabase.event_hourly_breakdown(@eventName, customer_id)
-      erb :event_data
+      if TheDatabase.event_exists?(@eventName)
+        @customer_identifier = params[:identifier]
+        customer_id = Customer.find_id(@customer_identifier)
+        @event_hourly_breakdown = TheDatabase.event_hourly_breakdown(@eventName, customer_id)
+        erb :event_data
+      else
+        "Sorry, there is no event named #{@eventName} on file"
+      end
     end
 
     get '/sources/:identifier/data' do
-      @identifier = params[:identifier]
-      erb :payload
+      if TheDatabase.identifier_exists?(params[:identifier])
+        @identifier = params[:identifier]
+        erb :payload
+      else
+        "Sorry, #{@customer_identifier} is not an identifier in our records"
+      end
     end
 
     post '/sources/:identifier/data' do |identifier|
       # @identifier = params[:identifier]
       payload_data = params["payload"]
-
-      clean_payload_data = JSON.parse(payload_data)
-
+      unless payload_data == "" || payload_data == nil
+        clean_payload_data = JSON.parse(payload_data)
+      end
+      if payload_data == nil
+        halt 400, "ERROR: Please enter payload data\n"
+      elsif payload_data == ''
+        halt 400, "ERROR: Please enter payload data\n"
+      # elsif TheDatabase.payload_data_exists?(clean_payload_data)
+      #   halt 403, "ERROR: Payload already received!\n"
+      else
       customer_id = Customer.find_id(identifier)
 
       payload = Request.new(customer_id, clean_payload_data)
 
       payload.save
       redirect to('/sources/whoeversubmitteditlast/data')
-    end
-
-
-
-
-    get '/sources/:identifier/campaign' do
-      erb :register_campaign
-    end
-
-    post "/sources/:identifier/campaign" do
-      campaign_name = params[:campaign_name]
-      event_names = params[:event_names]
-      TrafficSpy::Campaign.new(campaign_name, event_names)
-    end
-
-    get "/sources/:identifier/campaign/:campaign_name" do
-      erb :campaign_data
+      end
     end
 
     not_found do
       erb :error
-
       # halt 400 if params.length == 0 -->should go @ end of post method
     end
+
+    # post "/sources/:identifier/campaigns" do
+    #   customer_identifier = params[:identifier]
+    #   campaignName = params[:campaignName]
+    #   eventNames = params[:eventNames]
+
+    #   # event_array = Campaign.create_event_array(eventNames)
+
+
+    #   customer_id = Customer.find_id(customer_identifier)
+    #   campaign = TrafficSpy::Campaign.new(customer_id, campaignName, eventNames)
+    #   campaign.save
+    #   redirect to('/sources/fixlater/campaigns')
+    # end
+
+    # get "/sources/:identifier/campaign/:campaignName" do
+    #   @customer_identifier = params[:identifier]
+    #   @campaignName = params[:campaignName]
+
+    #   # @campaign_events_by_times_received
+
+
+    #   erb :campaign_data
+    # end
+
+
 
 
 

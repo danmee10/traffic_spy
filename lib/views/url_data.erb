@@ -7,7 +7,7 @@
       <p>
         <h2>Response Times</h2>
           <ol>
-    <% @response_times.each do |time| %>
+    <% @response_times.sort_by { |pair| pair[:respondedIn]}.reverse.each do |time| %>
         <div><%= time %></a></div>
     <% end %>
         </ol>

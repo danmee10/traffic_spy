@@ -1,17 +1,15 @@
 <html>
   <head>
-    <title>--IDENTIFIER--</title>
+    <title>Campaign Data</title>
   </head>
   <body>
-    <h1>CAMPAIGNS</h1>
+    <h1><%=@customer_identifier%>'s Campaign Data</h1>
       <p>
-        <h2>Events by Times Received</h2>
-          <ol>
-            <li>E1</li>
-            <li>E2</li>
-            <li>E3</li>
-            <li>E4</li>
-        </ol>
+        <h2><%=@campaignName%></h2>
+          <h3>Events by time received</h3>
+    <%@campaign_events_by_times_received.each do |event| %>
+        <div><%=event %></a></div>
+    <% end %>
       </p>
 
       <p>

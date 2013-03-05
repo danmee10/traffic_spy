@@ -16,7 +16,7 @@ module TrafficSpy
 
     def save
       Customer.data.insert(:identifier => identifier,
-                                            :rootUrl => rootUrl)
+                           :rootUrl => rootUrl)
     end
 
     def self.data
@@ -29,11 +29,12 @@ module TrafficSpy
     end
 
     def self.create_table
+      Campaign.create_table
       Request.create_table
       TheDatabase.database.create_table? :customers do
         primary_key :id
-        String :identifier
-        String :rootUrl
+        String      :identifier
+        String      :rootUrl
       end
     end
 
@@ -50,6 +51,11 @@ module TrafficSpy
         row.to_a[0][:id]
       end
     end
+
+#     def self.invalid_request!(message)
+#   logger.info "Request rejected: #{message}\n#{caller(1).join "\n"}"
+#   halt 400, message
+# end
 
   end
 end

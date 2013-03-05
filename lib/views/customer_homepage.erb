@@ -8,9 +8,11 @@
         <h2>URLs by times requested</h2>
         <h4>Root URL: <%=@root_url%></h4>
           <ol>
-    <% @urls_by_times_requested.each do |url| %>
-        <div> <%=url%></div>
-    <% end %>
+            <%unless @urls_by_times_requested == nil%>
+              <% @urls_by_times_requested.each do |url| %>
+                  <div> <%=url%></div>
+              <% end %>
+            <%end%>
         </ol>
       </p>
       <p>
@@ -23,9 +25,11 @@
       </p>
       <p>
         <h2>URL Hyperlinks</h2>
-    <% @url_extension_array.each do |extension| %>
-        <div><a href="/sources/<%=@customer_identifier%>/urls<%= extension %>"><%= extension %></a></div>
-    <% end %>
+        <%unless @url_extension_array == nil%>
+          <% @url_extension_array.each do |extension| %>
+              <div><a href="/sources/<%=@customer_identifier%>/urls<%= extension %>"><%= extension %></a></div>
+          <% end %>
+        <%end%>
       </p>
       <p>
         <h2>Web Browser Breakdown</h2>
@@ -51,43 +55,5 @@
         <h2><a href="/sources/<%=@customer_identifier%>/events">Event Index</a></h2>
 <!-- <div><a href="/sources/<%=@customer_identifier%>/events"></a></div> -->
       </p>
-
-
-<!--     <% [ "event1", "event2", "event3" ].each do |item| %>
-        <div><a href="/sources/<%=@customer_identifier%>/<%= item %>/index"><%= item %></a></div>
-    <% end %> -->
-
-
-<!--
-
-    <div>Text</div>
-    <p>Text2</p>
-    <div>Text3</div>
-
-    <ol>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-    </ol>
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-    </ul>
-
-    <% [ :first, :second, :third ].each do |item| %>
-        <div><a href="<%= item %>/index"><%= item %></a></div>
-    <% end %> -->
   </body>
 </html>
-
-
-<h4>Most requested URLS to least requested URLS (url)</h4>
-<h4>Web browser breakdown across all requests (userAgent)</h4>
-<h4>OS breakdown across all requests (userAgent)</h4>
-<h4>Screen Resolution across all requests (resolutionWidth x resolutionHeight)</h4>
-<h4>Longest, average response time per URL to shortest, average response time per URL</h4>
-<h4>Hyperlinks of each url to view url specific data</h4>
-<h4>Hyperlink to view aggregate event data</h4>

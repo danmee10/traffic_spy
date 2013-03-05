@@ -5,20 +5,16 @@
   <body>
     <h1><%=@customer_identifier%>'s Event Index</h1>
       <p>
-        <h2>Events listed by  number of times received</h2>
-        <h4>Click event listing for details</h4>
-    <% @events_array.each do |event| %>
-        <div><a href="events/<%=event[0] %>"><%= event %></a></div>
-    <% end %>
+        <% unless @events_array == []%>
+            <h2>Events listed by  number of times received</h2>
+            <h4>Click event listing for details</h4>
+        <% @events_array.each do |event| %>
+            <div><a href="events/<%=event[0] %>"><%= event %></a></div>
+        <% end %>
+        <%else%>
+        <h3>No events have been defined</h3>
+        <%end%>
       </p>
-
   </body>
 </html>
 
-
-
-<h1>all events for customer listed from most received to least</h1>
-<h1>links to individual events</h1>
-
-
-<h1>if no events then report, "no events defined"</h1>
