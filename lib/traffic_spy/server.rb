@@ -1,16 +1,9 @@
-require './lib/traffic_spy/models/customer'
-require 'sinatra'
-require 'JSON'
-require './lib/traffic_spy'
-require './lib/traffic_spy/models/request'
-require 'useragent'
-# require 'traffic_spy'
+require_relative '../traffic_spy'
 
 module TrafficSpy
-
-  class Server #< Sinatra::Base
+  class Server < Sinatra::Base
     set :views, 'lib/views'
-    extend TheDatabase
+
     helpers do
       def blank?(key)
         params[key].nil? || params[key] == ""

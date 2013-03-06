@@ -1,6 +1,3 @@
-require './lib/traffic_spy/models/request'
-require './lib/traffic_spy/models/customer'
-
 module TrafficSpy
 
   if ENV["TRAFFIC_SPY_ENV"] == "test"

@@ -1,6 +1,3 @@
-require 'sequel'
-require './lib/traffic_spy'
-
 module TrafficSpy
 
   class Request

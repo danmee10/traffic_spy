@@ -1,21 +1,12 @@
-require 'sinatra/base'
+require 'sinatra'
 require 'sequel'
 require 'useragent'
-require './lib/traffic_spy/models/base'
+require 'JSON'
+require 'sqlite3'
 
-# require 'sqlite3'
-# require 'traffic_spy/models/base'
-# require 'traffic_spy/server'
-# require 'traffic_spy/version'
-
-module TrafficSpy
-  module TheDatabase
-  attr_accessor :database
-
-    def self.database
-      # @database ||= TrafficSpy::DB
-      @database ||= Sequel.sqlite 'db/traffic_spy.sqlite3'
-      #one line switch to postgres
-    end
-  end
-end
+require 'traffic_spy/version'
+require 'traffic_spy/models/database'
+require 'traffic_spy/models/base'
+require 'traffic_spy/models/request'
+require 'traffic_spy/models/customer'
+require 'traffic_spy/server'

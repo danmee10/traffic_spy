@@ -1,10 +1,4 @@
-# require 'sqlite3'
-require 'sequel'
-require 'traffic_spy'
-
 module TrafficSpy
-
-
   class Customer
     attr_reader :identifier, :rootUrl
     # extend TheDatabase
@@ -41,6 +35,10 @@ module TrafficSpy
     def self.identifier_exists?(customer_identifier)
       customer_identifiers = TheDatabase.database[:customers].select(:identifier)
       customer_identifiers.to_a.any? { |identifier| identifier[:identifier] == customer_identifier}
+    end
+
+    def self.destroy_all
+      data.delete
     end
   end
 end
