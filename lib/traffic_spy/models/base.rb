@@ -1,8 +1,11 @@
+require './lib/traffic_spy/models/request'
+require './lib/traffic_spy/models/customer'
+
 module TrafficSpy
 
   if ENV["TRAFFIC_SPY_ENV"] == "test"
-    DB = Sequel.sqlite database_file
     database_file = 'db/traffic_spy-test.sqlite3'
+    DB = Sequel.sqlite database_file
   else
     DB = Sequel.postgres "traffic_spy"
   end
@@ -14,4 +17,3 @@ end
 #
 # @example
 #
-# require 'traffic_spy/models/request'

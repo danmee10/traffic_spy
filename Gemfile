@@ -10,6 +10,9 @@ group :development do
   gem 'rb-fsevent', '~> 0.9'
   gem 'sqlite3'
   gem 'useragent'
+
+  gem 'simplecov'
+  gem 'rake'
 end
 
 group :evaluations do

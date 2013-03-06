@@ -1,5 +1,12 @@
 require "bundler/gem_tasks"
+# require "rake/testtask"
 Bundler.require
+
+# task :default => :test
+
+# Rake::TestTask.new do |t|
+#   t.pattern = "test/*_test.rb"
+# end
 
 namespace :db do
   desc "Run migrations"
@@ -20,9 +27,8 @@ namespace :db do
       @database = Sequel.sqlite database_file
       database_file = 'db/traffic_spy-test.sqlite3'
     else
-      @database = Sequel.postgres "traffic_spy"
+      @database = Sequel.sqlite 'db/traffic_spy.sqlite3'
     end
-
   end
 end
 

@@ -7,7 +7,7 @@ module TrafficSpy
 
   class Customer
     attr_reader :identifier, :rootUrl
-    extend TheDatabase
+    # extend TheDatabase
 
     def initialize(input)
       @identifier = input[:identifier]
@@ -20,23 +20,9 @@ module TrafficSpy
     end
 
     def self.data
-      verify_table_exists
       TheDatabase.database[:customers]
     end
 
-    def self.verify_table_exists
-      @table_exists ||= (create_table || true)
-    end
-
-    def self.create_table
-      Campaign.create_table
-      Request.create_table
-      TheDatabase.database.create_table? :customers do
-        primary_key :id
-        String      :identifier
-        String      :rootUrl
-      end
-    end
 
     def self.find_root_url(identifier)
       row = data.select.where(:identifier => identifier)
@@ -52,10 +38,9 @@ module TrafficSpy
       end
     end
 
-#     def self.invalid_request!(message)
-#   logger.info "Request rejected: #{message}\n#{caller(1).join "\n"}"
-#   halt 400, message
-# end
-
+    def self.identifier_exists?(customer_identifier)
+      customer_identifiers = TheDatabase.database[:customers].select(:identifier)
+      customer_identifiers.to_a.any? { |identifier| identifier[:identifier] == customer_identifier}
+    end
   end
 end

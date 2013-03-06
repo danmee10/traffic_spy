@@ -1,23 +1,16 @@
 <html>
   <head>
-    <title><%=@rootUrl%>/<%=@path%><%=@pathext1%><%=@pathext2%></title>
+    <title><%=@rootUrl%>/<%=@path%></title>
   </head>
   <body>
-    <h1><%=@path%><%=@pathext1%><%=@pathext2%> STATS:</h1>
+    <h1><%=@path[0]%> STATS:</h1>
       <p>
         <h2>Response Times</h2>
           <ol>
-    <% @response_times.sort_by { |pair| pair[:respondedIn]}.reverse.each do |time| %>
-        <div><%= time %></a></div>
-    <% end %>
+          <% @response_times.sort_by { |pair| pair[:respondedIn]}.reverse.each do |time| %>
+              <div><%= time %></a></div>
+          <% end %>
         </ol>
-      </p>
-
+     </p>
   </body>
 </html>
-
-<h1>longest response time to shortest response time</h1>
-
-
-
-<h1>if url does not exist then say so</h1>

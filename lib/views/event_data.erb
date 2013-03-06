@@ -6,8 +6,8 @@
     <h1><%=@eventName%> details</h1>
       <p>
         <h2>Hour by Hour Breakdown</h2>
-    <% @event_hourly_breakdown.each do |hour| %>
-        <div><%= hour %></a></div>
+    <% @event_hourly_breakdown.sort_by {|g| g[1]}.reverse.each do |hour| %>
+        <div>Hour of day: <%=hour[0]%>, Times received: <%=hour[1]%></a></div>
     <% end %>
       </p>
 
