@@ -18,7 +18,7 @@ module TrafficSpy
 
       describe "#save" do
         it "should be able to save an instance of itself" do
-          customer.save
+          expect{ customer.save }.to change{ Customer.count }.by(1)
         end
       end
     end

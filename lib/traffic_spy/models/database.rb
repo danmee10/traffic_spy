@@ -4,7 +4,8 @@ module TrafficSpy
 
     def self.database
       # @database ||= TrafficSpy::DB
-      @database ||= Sequel.sqlite 'db/traffic_spy.sqlite3'
+      @database ||= Sequel.postgres 'traffic_spy'
+      # @database ||= Sequel.sqlite 'db/traffic_spy.sqlite3'
       #one line switch to postgres
     end
   end

@@ -81,14 +81,18 @@ module TrafficSpy
       end
     end
 
-    get '/sources/:identifier/data' do
-      if Customer.identifier_exists?(params[:identifier])
-        @identifier = params[:identifier]
-        erb :payload
-      else
-        "Sorry, #{@customer_identifier} is not an identifier in our records"
-      end
+    post '/sources/:identifier/campaigns' do
+      puts "REGISTRING A CAMPAGIN"
     end
+
+    # get '/sources/:identifier/data' do
+    #   if Customer.identifier_exists?(params[:identifier])
+    #     @identifier = params[:identifier]
+    #     erb :payload
+    #   else
+    #     "Sorry, #{@customer_identifier} is not an identifier in our records"
+    #   end
+    # end
 
     post '/sources/:identifier/data' do |identifier|
       payload_data = params["payload"]

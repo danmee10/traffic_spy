@@ -3,6 +3,7 @@ require 'sequel'
 require 'useragent'
 require 'JSON'
 require 'sqlite3'
+require 'digest'
 
 require 'traffic_spy/version'
 require 'traffic_spy/models/database'

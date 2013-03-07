@@ -1,9 +1,12 @@
 ENV["TRAFFIC_SPY_ENV"] ||= "test"
+# Bundler.require
+require 'rack/test'
 
 
 require 'simplecov'
 SimpleCov.start do
   add_filter '/spec'
+  add_filter '/base'
 end
 
 require 'traffic_spy'

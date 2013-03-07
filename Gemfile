@@ -15,6 +15,7 @@ group :development do
 
   gem 'simplecov'
   gem 'rake'
+  gem 'rack-test' #require: "rack/test"
 end
 
 group :evaluations do

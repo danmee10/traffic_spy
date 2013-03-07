@@ -40,5 +40,9 @@ module TrafficSpy
     def self.destroy_all
       data.delete
     end
+
+    def self.count
+      data.count
+    end
   end
 end

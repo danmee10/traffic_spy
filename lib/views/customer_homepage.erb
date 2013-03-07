@@ -39,9 +39,13 @@
       </p>
       <p>
         <h2>OS Breakdown</h2>
+      <%if @operating_systems_by_times_requested.to_a.size <= 1%>
+        <%=@operating_systems_by_times_requested%>
+        <%else%>
     <% @operating_systems_by_times_requested.each do |operating_system| %>
         <div> <%=operating_system%></div>
     <% end %>
+    <%end%>
       </p>
       <p>
         <h2>Sreen Resolution Breakdown</h2>

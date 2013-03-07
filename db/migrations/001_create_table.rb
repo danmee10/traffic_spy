@@ -23,6 +23,7 @@ Sequel.migration do
       Integer     :resolutionHeight
       Integer     :resolutionWidth
       String      :ip
+      String      :payload_digest
     end
   end
 end
